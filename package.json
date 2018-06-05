@@ -1,0 +1,35 @@
+{
+  "name": "open.klerk.io",
+  "version": "0.0.1",
+  "description": "Klerk Community Edition",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build",
+    "clean": "gulp clean",
+    "deploy-lockers": "gcloud beta functions deploy lockers --trigger-http --source=build --region=us-central1",
+    "deploy-lockers-local": "cd build && functions deploy lockers --trigger-http && cd .."
+  },
+  "keywords": [
+    "Open Cloud Storage"
+  ],
+  "author": "Philipp Bauer <pbauer@klerk.io>",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/datastore": "^1.4.0",
+    "crypto-js": "^3.1.9-1",
+    "dotenv": "^6.0.0",
+    "modofun": "^1.1.0",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^4.19.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-rename": "^1.2.3"
+  }
+}
