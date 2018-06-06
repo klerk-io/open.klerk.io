@@ -11,7 +11,6 @@ exports.default = modofun({
     return lockerController.get(id);
   }],
   "yield": [modofun.arity(0), function() {
-    console.log(this);
     return lockerController.store(this.body);
   }]
 });

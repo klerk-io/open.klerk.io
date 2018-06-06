@@ -43,7 +43,6 @@ export default class DatabaseGcloud extends DatabaseAbstract {
     try {
       const key = this.datastore.key([table, id]);
       const result = (await this.datastore.get(key))[0];
-      console.log(result);
 
       if (!result) {
         return {};

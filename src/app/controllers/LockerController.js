@@ -31,7 +31,7 @@ export default class LockerController extends DefaultController {
    * @return {Object}
    */
   async get(id) {
-    console.log("Called LockerController.get() with:", id);
+    // console.log("Called LockerController.get() with:", id);
     this.parameter.set(id).isString().isNotEmpty();
 
     const lockerEntity = await this.database.get(id);
@@ -45,10 +45,10 @@ export default class LockerController extends DefaultController {
     }
 
     let locker = new Locker(lockerEntity).reduceRequests();
-    console.log("Called LockerController.get() locker:", locker);
+    // console.log("Called LockerController.get() locker:", locker);
 
     const result = await this.database.update(locker.toJson(), id);
-    console.log("Called LockerController.get() result:", result);
+    // console.log("Called LockerController.get() result:", result);
 
     return result;
   }
@@ -59,7 +59,7 @@ export default class LockerController extends DefaultController {
    * @return {Object}
    */
   async store(data) {
-    console.log("Called LockerController.store() with:", data);
+    // console.log("Called LockerController.store() with:", data);
     this.parameter.set(data).isObject().isNotEmpty();
 
     const requests = this.config.lockers.entity.defaults.requests;
@@ -77,10 +77,10 @@ export default class LockerController extends DefaultController {
       .createId();
 
     const lockerEntity = locker.toJson();
-    console.log("Called LockerController.store() entity:", lockerEntity);
+    // console.log("Called LockerController.store() entity:", lockerEntity);
 
     const result = await this.database.store(lockerEntity, lockerEntity.id);
-    console.log("Called LockerController.store() result:", result);
+    // console.log("Called LockerController.store() result:", result);
 
     return result;
   }
