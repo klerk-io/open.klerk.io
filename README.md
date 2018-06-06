@@ -9,3 +9,7 @@ To configure the service for your organization, copy the `example.env` file to `
 ## Deployment
 
 Depending on the platform there are different ways of deployment. Please refer to the platform documentation for details. For **Google Cloud Platform** enter `npm run gcloud-deploy` after setting up your credentials.
+
+## Usage
+
+You can send JSON data to the `https://your.deployment-example-url.com/lockers/yield` endpoint with a POST request and retrieve your data from `https://your.deployment-example-url.com/lockers/fetch/{{ LOCKER_ID }}` with a GET request.
