@@ -37,11 +37,11 @@ export default class LockerController extends DefaultController {
     const lockerEntity = await this.database.get(id);
 
     if (Object.keys(lockerEntity).length === 0) {
-      return this.response.notFound();
+      return this.responseError.notFound();
     }
 
     if (lockerEntity.requests === 0) {
-      return this.response.gone();
+      return this.responseError.gone();
     }
 
     let locker = new Locker(lockerEntity).reduceRequests();
