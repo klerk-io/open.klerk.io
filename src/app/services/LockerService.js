@@ -1,16 +1,19 @@
 require("dotenv").config();
 
-let modofun = require("modofun");
-let config = require("../config");
-let LockerController = require("../controllers/LockerController").default;
+const modofun = require("modofun");
+const morgan = require("morgan");
 
+const config = require("../config");
+const LockerController = require("../controllers/LockerController").default;
 let lockerController = new LockerController(config);
 
-exports.default = modofun({
+module.exports = modofun({
   "fetch": [modofun.arity(1), function(id) {
     return lockerController.get(id);
   }],
   "yield": [modofun.arity(0), function() {
     return lockerController.store(this.body);
   }]
+}, {
+  middleware: [morgan('tiny')]
 });
