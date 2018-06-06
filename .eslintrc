@@ -10,6 +10,7 @@
   },
   "rules": {
     "no-console": "off",
+    "no-unused-vars": "warn",
     "strict": ["error", "global"],
     "curly": "warn"
   }

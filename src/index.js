@@ -8,4 +8,4 @@
 require("dotenv").config();
 
 // Export modofun services as function handler
-exports.lockers = require("./app").lockerService;
+exports.lockers = require("./app/services/LockerService").default;

@@ -25,24 +25,24 @@ let paths = {
  */
 
 // Remove previous build
-gulp.task("clean", () => del(paths.build));
+gulp.task("clean", function() { del(paths.build); });
 
 // Copy package.json for cloud function bundle
-gulp.task("copy-package.json", () => {
+gulp.task("copy-package.json", function() {
   return gulp
     .src("package.json")
     .pipe(gulp.dest(paths.build));
 });
 
 // Copy environment for cloud function bundle
-gulp.task("copy-dotenv", () => {
+gulp.task("copy-dotenv", function() {
   return gulp
     .src(".env")
     .pipe(gulp.dest(paths.build));
 });
 
 // Build the application
-gulp.task("build", ["copy-package.json", "copy-dotenv"], () => {
+gulp.task("build", ["copy-package.json", "copy-dotenv"], function() {
   return gulp
     .src(path.join(paths.source, "**/*.js"))
     .pipe(eslint())
