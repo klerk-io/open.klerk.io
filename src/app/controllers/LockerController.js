@@ -47,10 +47,14 @@ export default class LockerController extends DefaultController {
     let locker = new Locker(lockerEntity).reduceRequests();
     // console.log("Called LockerController.get() locker:", locker);
 
-    const result = await this.database.update(locker.toJson(), id);
+    if (locker.requestsValue() === 0) {
+      await this.database.delete(id);
+    } else {
+      await this.database.update(locker.toJson(), id);
+    }
     // console.log("Called LockerController.get() result:", result);
 
-    return result;
+    return locker.toJson();
   }
 
   /**
