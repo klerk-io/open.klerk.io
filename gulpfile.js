@@ -41,8 +41,16 @@ gulp.task("copy-dotenv", function() {
     .pipe(gulp.dest(paths.build));
 });
 
-// Build the application
-gulp.task("build", ["copy-package.json", "copy-dotenv"], function() {
+// Copy environment for local function bundle
+gulp.task("copy-dotenv-local", function() {
+  return gulp
+    .src(".env-local")
+    .pipe(rename(".env"))
+    .pipe(gulp.dest(paths.build));
+});
+
+// Transpile source code
+gulp.task("transpile", function() {
   return gulp
     .src(path.join(paths.source, "**/*.js"))
     .pipe(eslint())
@@ -51,6 +59,12 @@ gulp.task("build", ["copy-package.json", "copy-dotenv"], function() {
     .pipe(babel())
     .pipe(gulp.dest(paths.build));
 });
+
+// Build the application for cloud
+gulp.task("build", ["copy-package.json", "copy-dotenv", "transpile"]);
+
+// Build the application for local
+gulp.task("build-local", ["copy-package.json", "copy-dotenv-local", "transpile"]);
 
 // Define the default task (when running 'gulp' command from CLI)
 gulp.task("default", ["build"]);
