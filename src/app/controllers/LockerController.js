@@ -34,6 +34,8 @@ export default class LockerController extends DefaultController {
     // console.log("Called LockerController.get() with:", id);
     this.parameter.set(id).isString().isNotEmpty();
 
+    let locker = new Locker({id});
+
     const lockerEntity = await this.database.get(id);
 
     if (Object.keys(lockerEntity).length === 0) {
@@ -44,7 +46,7 @@ export default class LockerController extends DefaultController {
       return this.responseError.gone();
     }
 
-    let locker = new Locker(lockerEntity).reduceRequests();
+    locker.setEntity(lockerEntity).reduceRequests();
     // console.log("Called LockerController.get() locker:", locker);
 
     if (locker.requestsValue() === 0) {
