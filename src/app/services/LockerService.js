@@ -1,9 +1,10 @@
 require("dotenv").config();
+const config = require("../config");
 
 const modofun = require("modofun");
 const morgan = require("morgan");
+const helmet = require("helmet");
 
-const config = require("../config");
 const LockerController = require("../controllers/LockerController").default;
 let lockerController = new LockerController(config);
 
@@ -15,5 +16,8 @@ module.exports = modofun({
     return lockerController.store(this.body);
   }]
 }, {
-  middleware: [morgan('tiny')]
+  middleware: [
+    morgan('tiny'),
+    helmet()
+  ]
 });
