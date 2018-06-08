@@ -1,4 +1,4 @@
-class ThrowableResponseError extends Error {
+class ModofunError extends Error {
   constructor(status, code, message) {
     super(message);
     this.status = status;
@@ -7,27 +7,29 @@ class ThrowableResponseError extends Error {
 }
 
 export default class ResponseError {
-  constructor() {
-    // nothing
+  constructor(status = null, code = null, message = null) {
+    if (status || code || message) {
+      throw new ModofunError(status || 200, code || "OK", message || "Success");
+    }
   }
 
   unauthorized(message = "You are not allowed to access this resource.") {
-   throw new ThrowableResponseError(401, "Unauthorized", message);
+   throw new ModofunError(401, "Unauthorized", message);
   }
 
   notFound(message = "Resource could not be found.") {
-   throw new ThrowableResponseError(404, "Not Found", message);
+   throw new ModofunError(404, "Not Found", message);
   }
 
   gone(message = "Resource is gone. Stop looking for it.") {
-   throw new ThrowableResponseError(410, "Gone", message);
+   throw new ModofunError(410, "Gone", message);
   }
 
   tooManyRequests(message = "You are sending too many requests. Slow down.") {
-   throw new ThrowableResponseError(429, "Too Many Requests", message);
+   throw new ModofunError(429, "Too Many Requests", message);
   }
 
   internalError(message = "We are experiencing some trouble. Please file a bug report on Github.") {
-   throw new ThrowableResponseError(500, "Internal Error", message);
+   throw new ModofunError(500, "Internal Error", message);
   }
 }
