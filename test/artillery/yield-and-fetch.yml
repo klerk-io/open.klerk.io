@@ -1,0 +1,21 @@
+config:
+  target: "https://us-central1-clarityapps-sandbox.cloudfunctions.net/lockers"
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      rampTo: 100
+    - duration: 60
+      arrivalRate: 100
+scenarios:
+  - name: "Yield and Fetch"
+    flow:
+        - post:
+            url: "/yield"
+            json:
+              test: "artillery"
+            capture:
+              json: "$.id"
+              as: "id"
+        # - pause: 1
+        - get:
+            url: "/fetch/{{ id }}"
