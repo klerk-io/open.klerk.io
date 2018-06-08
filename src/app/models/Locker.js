@@ -20,11 +20,7 @@ export default class Locker extends Model {
     super();
 
     if (entity !== null) {
-      if (entity.id && !this.verifyId(entity.id)) {
-        throw new RangeError(`The lockerId "${entity.id}" is not valid.`);
-      }
-
-      this.entity = Object.assign({}, config.lockers.entity.signature, entity);
+      this.setEntity(entity);
     } else {
       this.entity = config.lockers.entity.signature;
       this.createId();
@@ -33,18 +29,15 @@ export default class Locker extends Model {
     return this;
   }
 
-  /**
-   * Set a value
-   *
-   * @todo This is horrible implementation and needs to change
-   *
-   * @param  {String} Key
-   * @param  {Mixed}  Value
-   *
-   * @return {Self}
-   */
-  setValue(key, value) {
-    this.entity[key] = value;
+  setEntity(entity) {
+    if (entity.id && !this.verifyId(entity.id)) {
+      throw new RangeError(`The lockerId "${entity.id}" is not valid.`);
+    } else if (!entity.id) {
+      this.createId();
+    }
+
+    this.entity = Object.assign(this.entity || {}, config.lockers.entity.signature, entity);
+
     return this;
   }
 
@@ -55,6 +48,10 @@ export default class Locker extends Model {
   createId() {
     const uuid = UUIDv1();
     const checksum = this.createUuidChecksum(uuid);
+
+    if (!this.entity) {
+      this.entity = {};
+    }
 
     this.entity.id = `${uuid}-${checksum}`;
 
