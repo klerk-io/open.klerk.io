@@ -11,9 +11,9 @@ export default class LockerController extends DefaultController {
   /**
    * Construct the class
    *
-   * @var {Object} Environment Configuration
-   * @var {Object} Service Configuration
-   * @var {Object} User (optional)
+   * @param {Object} Environment Configuration
+   * @param {Object} Service Configuration
+   * @param {Object} User (optional)
    *
    * @return {Void}
    */
