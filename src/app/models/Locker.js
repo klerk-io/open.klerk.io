@@ -29,6 +29,12 @@ export default class Locker extends Model {
     return this;
   }
 
+  /**
+   * Set model entity
+   *
+   * @param {Object} entity
+   * @return {Self}
+   */
   setEntity(entity) {
     if (entity.id && !this.verifyId(entity.id)) {
       throw new RangeError(`The lockerId "${entity.id}" is not valid.`);
