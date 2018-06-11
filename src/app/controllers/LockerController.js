@@ -1,21 +1,18 @@
+import DefaultController from "./DefaultController";
+import Locker from "../models/Locker";
+
 /**
- * Lockers Controller
+ * Locker Controller
  * Orchestrates the storage and retrieval of lockers.
  *
  * @author Philipp Bauer <pbauer@klerk.io>
  */
-import DefaultController from "./DefaultController";
-import Locker from "../models/Locker";
-
 export default class LockerController extends DefaultController {
   /**
    * Construct the class
    *
-   * @param {Object} Environment Configuration
-   * @param {Object} Service Configuration
-   * @param {Object} User (optional)
-   *
-   * @return {Void}
+   * @param {Object} config Environment Configuration
+   * @returns {Void}
    */
   constructor(config) {
     super(config);
@@ -28,7 +25,7 @@ export default class LockerController extends DefaultController {
    * Gets a locker by id
    *
    * @param  {String} id
-   * @return {Object}
+   * @returns {Object}
    */
   async get(id) {
     // console.log("Called LockerController.get() with:", id);
@@ -62,7 +59,8 @@ export default class LockerController extends DefaultController {
   /**
    * Stores a new locker
    *
-   * @return {Object}
+   * @param {Object} data The u3ser data
+   * @returns {Object}
    */
   async store(data) {
     // console.log("Called LockerController.store() with:", data);
@@ -97,7 +95,7 @@ export default class LockerController extends DefaultController {
    * @param  {String} id
    * @param  {Object} data
    *
-   * @return {Response}
+   * @returns {Response}
    */
   async update(id, data) {
     throw new Error(`Method update(id, data) is not implemented`);
@@ -107,9 +105,7 @@ export default class LockerController extends DefaultController {
    * Delete an existing locker
    *
    * @param  {String} id
-   * @param  {Object} data
-   *
-   * @return {Response}
+   * @returns {Response}
    */
   async delete(id) {
     throw new Error(`Method delete(id) is not implemented`);

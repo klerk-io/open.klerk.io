@@ -1,3 +1,7 @@
+
+import ParameterValidator from "../libs/ParameterValidator";
+import ResponseError from "../libs/ResponseError";
+
 /**
  * Default Controller
  *
@@ -6,10 +10,12 @@
  *
  * @author Philipp Bauer <pbauer@klerk.io>
  */
-import ParameterValidator from "../libs/ParameterValidator";
-import ResponseError from "../libs/ResponseError";
-
 export default class DefaultController {
+  /**
+   * Construct the class
+   * @param {Object} config
+   * @returns {Void}
+   */
   constructor(config) {
     this.parameter = new ParameterValidator();
     this.responseError = new ResponseError();
@@ -20,7 +26,7 @@ export default class DefaultController {
   /**
    * Capitalize a string (how is this not a String prototype in 2018?)
    * @param  {String} string
-   * @return {String}
+   * @returns {String}
    */
   capitalize(string) {
     return string.replace(/\b\w/g, s => s.toUpperCase());
@@ -36,7 +42,7 @@ export default class DefaultController {
    * dynamically for the specified platform.
    *
    * @param  {String} path
-   * @return {Class}
+   * @returns {Class}
    */
   requireLib(path) {
     return require(`../libs/${path}/${this.capitalize(path)}${this.capitalize(this.config.app.platform)}`).default;

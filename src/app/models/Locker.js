@@ -14,7 +14,7 @@ export default class Locker extends Model {
    * Construct the class
    *
    * @param  {Object}  Locker Entity
-   * @return {Self}
+   * @returns {Self}
    */
   constructor(entity = null) {
     super();
@@ -33,7 +33,7 @@ export default class Locker extends Model {
    * Set model entity
    *
    * @param {Object} entity
-   * @return {Self}
+   * @returns {Self}
    */
   setEntity(entity) {
     if (entity.id && !this.verifyId(entity.id)) {
@@ -49,7 +49,7 @@ export default class Locker extends Model {
 
   /**
    * Create an id
-   * @return {String}
+   * @returns {String}
    */
   createId() {
     const uuid = UUIDv1();
@@ -74,7 +74,7 @@ export default class Locker extends Model {
    * The salt is used to make this attack even harder.
    *
    * @param  {String}  id (optional)
-   * @return {Boolean}
+   * @returns {Boolean}
    */
   verifyId(id = null) {
     id = id || this.entity.id;
@@ -85,7 +85,7 @@ export default class Locker extends Model {
    * Create a salted checksum for the uuid
    *
    * @param  {String} uuid
-   * @return {String}      Partial MD5 Hash
+   * @returns {String}      Partial MD5 Hash
    */
   createUuidChecksum(uuid) {
     if (!config.lockers.salt || config.lockers.salt.length === 0) {
@@ -99,7 +99,7 @@ export default class Locker extends Model {
    * Parses the uuid from a id
    *
    * @param  {String} id
-   * @return {String}     UUIDv1
+   * @returns {String}     UUIDv1
    */
   parseUuid(id) {
     return id.substr(0, id.length - 17);
@@ -109,7 +109,7 @@ export default class Locker extends Model {
    * Parses the checksum from a id
    *
    * @param  {String} id
-   * @return {String}     Checksum
+   * @returns {String}     Checksum
    */
   parseChecksum(id) {
     return id.substr(-16);
@@ -117,7 +117,7 @@ export default class Locker extends Model {
 
   /**
    * Returns the remaining requests value
-   * @return {Integer}
+   * @returns {Integer}
    */
   requestsValue() {
     return this.entity.requests;
@@ -127,7 +127,7 @@ export default class Locker extends Model {
    * Reduce the requests value by value
    *
    * @param  {Number} value
-   * @return {Self}
+   * @returns {Self}
    */
   reduceRequests(value = 1) {
     if (value < 0) {
