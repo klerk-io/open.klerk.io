@@ -12,7 +12,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    * Construct the class
    *
    * @var {Object} Configuration
-   * @return {Void}
+   * @returns {Void}
    */
   constructor(config, table = null) {
     super(config, table);
@@ -33,7 +33,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    * @var {String} Item ID
    * @var {String} Table (optional)
    *
-   * @return {Object}
+   * @returns {Object}
    */
   async get(id, table = null) {
     this.parameter.set(id).isString().isNotEmpty();
@@ -63,7 +63,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    * @var {String} Item ID (optional)
    * @var {String} Table (optional)
    *
-   * @return {Object}
+   * @returns {Object}
    */
   async store(data, id = null, table = null) {
     this.parameter.set(data).isObject().isNotEmpty();
@@ -89,7 +89,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    * @var {String} Item ID
    * @var {String} Table (optional)
    *
-   * @return {Object}
+   * @returns {Object}
    */
   async update(data, id, table = null) {
     this.parameter.set(data).isObject().isNotEmpty();
@@ -114,7 +114,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    * @var {String} Item ID
    * @var {String} Table (optional)
    *
-   * @return {Boolean}
+   * @returns {Boolean}
    */
   async delete(id, table = null) {
     this.parameter.set(id).isString().isNotEmpty();
@@ -136,17 +136,28 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    * Input Conversion
    *
    * @param  {Object} data
-   * @return {Object}
+   * @returns {Object}
    */
   inputConversion(data) {
-    return data;
+    let gdata = [];
+
+    for (let key of Object.keys(data)) {
+      gdata.push({
+        name: key,
+        value: data[key],
+        excludeFromIndexes: true
+      });
+    }
+    console.log(gdata);
+
+    return gdata;
   }
 
   /**
    * Output Conversion
    *
-   * @param  {[Object} data
-   * @return {Object}
+   * @param  {Object} data
+   * @returns {Object}
    */
   outputConversion(data) {
     return data;
@@ -159,7 +170,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    * @param  {String} id
    * @param  {String} table
    *
-   * @return {Object}
+   * @returns {Object}
    */
   makeEntity(data, id, table) {
     this.parameter.set(data).isObject().isNotEmpty();
@@ -179,7 +190,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    * We set the id in the data object and return it.
    *
    * @param  {Object} entity
-   * @return {Object}
+   * @returns {Object}
    */
   normalizedEntity(entity) {
     // If the entity object is empty (array / object without results)
