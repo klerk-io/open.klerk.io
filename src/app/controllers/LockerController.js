@@ -64,7 +64,7 @@ export default class LockerController extends DefaultController {
    */
   async store(data) {
     // console.log("Called LockerController.store() with:", data);
-    this.parameter.set(data).isObject().isNotEmpty();
+    this.parameter.set(data).isNotEmpty();
 
     const requests = this.config.lockers.entity.defaults.requests;
     const ttl = this.config.lockers.entity.defaults.ttl;
