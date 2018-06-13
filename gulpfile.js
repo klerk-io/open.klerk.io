@@ -44,7 +44,7 @@ gulp.task("copy-dotenv", function() {
 // Copy environment for local function bundle
 gulp.task("copy-dotenv-local", function() {
   return gulp
-    .src(".env-local")
+    .src(".local.env")
     .pipe(rename(".env"))
     .pipe(gulp.dest(paths.build));
 });
