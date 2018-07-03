@@ -30,8 +30,8 @@ export default class DatabaseGcloud extends DatabaseAbstract {
   /**
    * Get entity from database
    *
-   * @var {String} Item ID
-   * @var {String} Table (optional)
+   * @var {String} id    Item ID
+   * @var {String} table Table (optional)
    *
    * @returns {Object}
    */
@@ -59,9 +59,9 @@ export default class DatabaseGcloud extends DatabaseAbstract {
   /**
    * Store entity in database
    *
-   * @var {Object} Item Data
-   * @var {String} Item ID (optional)
-   * @var {String} Table (optional)
+   * @var {Object} data  Item Data
+   * @var {String} id    Item ID (optional)
+   * @var {String} table Table (optional)
    *
    * @returns {Object}
    */
@@ -85,9 +85,9 @@ export default class DatabaseGcloud extends DatabaseAbstract {
   /**
    * Update entity in database
    *
-   * @var {Object} Item Data
-   * @var {String} Item ID
-   * @var {String} Table (optional)
+   * @var {Object} data  Item Data
+   * @var {String} id    Item ID
+   * @var {String} table Table (optional)
    *
    * @returns {Object}
    */
@@ -111,8 +111,8 @@ export default class DatabaseGcloud extends DatabaseAbstract {
   /**
    * Delete entity from database
    *
-   * @var {String} Item ID
-   * @var {String} Table (optional)
+   * @var {String} id    Item ID
+   * @var {String} table Table (optional)
    *
    * @returns {Boolean}
    */
@@ -135,7 +135,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
   /**
    * Input Conversion
    *
-   * @param  {Object} data
+   * @param   {Object} data
    * @returns {Object}
    */
   inputConversion(data) {
@@ -148,7 +148,6 @@ export default class DatabaseGcloud extends DatabaseAbstract {
         excludeFromIndexes: true
       });
     }
-    console.log(gdata);
 
     return gdata;
   }
@@ -156,7 +155,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
   /**
    * Output Conversion
    *
-   * @param  {Object} data
+   * @param   {Object} data
    * @returns {Object}
    */
   outputConversion(data) {
@@ -166,9 +165,9 @@ export default class DatabaseGcloud extends DatabaseAbstract {
   /**
    * Make a Google Datastore data entity
    *
-   * @param  {Object} data
-   * @param  {String} id
-   * @param  {String} table
+   * @param  {Object} data  Entity Data
+   * @param  {String} id    Entity ID
+   * @param  {String} table Table
    *
    * @returns {Object}
    */
