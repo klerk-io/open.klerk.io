@@ -11,7 +11,7 @@ export default class LockerController extends DefaultController {
   /**
    * Construct the class
    *
-   * @param {Object} config Environment Configuration
+   * @param   {Object} config Configuration
    * @returns {Void}
    */
   constructor(config) {
@@ -24,7 +24,7 @@ export default class LockerController extends DefaultController {
   /**
    * Gets a locker by id
    *
-   * @param  {String} id
+   * @param   {String} id Locker ID
    * @returns {Object}
    */
   async get(id) {
@@ -59,7 +59,7 @@ export default class LockerController extends DefaultController {
   /**
    * Stores a new locker
    *
-   * @param {Object} data The u3ser data
+   * @param   {Object} data  Locker Data
    * @returns {Object}
    */
   async store(data) {
@@ -72,13 +72,12 @@ export default class LockerController extends DefaultController {
     const expiresAt = createdAt + ttl;
 
     const locker = new Locker({
-        data: data,
-        requests: requests,
-        ttl: ttl,
-        createdAt: createdAt,
-        expiresAt: expiresAt
-      })
-      .createId();
+      data: data,
+      requests: requests,
+      ttl: ttl,
+      createdAt: createdAt,
+      expiresAt: expiresAt
+    });
 
     const lockerEntity = locker.toJson();
     // console.log("Called LockerController.store() entity:", lockerEntity);
@@ -104,7 +103,7 @@ export default class LockerController extends DefaultController {
   /**
    * Delete an existing locker
    *
-   * @param  {String} id
+   * @param   {String} id
    * @returns {Response}
    */
   async delete(id) {
