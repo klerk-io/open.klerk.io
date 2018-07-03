@@ -10,7 +10,8 @@ module.exports = {
     access: {
       headers: process.env.HEADERS_ACCESS_CONTROL_ALLOW_HEADERS || "Content-Type",
       methods: process.env.HEADERS_ACCESS_CONTROL_ALLOW_METHODS || "OPTIONS, POST, GET, PUT, DELETE",
-      origin: process.env.HEADERS_ACCESS_CONTROL_ALLOW_ORIGIN || "*"
+      origin: process.env.HEADERS_ACCESS_CONTROL_ALLOW_ORIGIN || "*",
+      expose: process.env.HEADERS_ACCESS_CONTROL_EXPOSE_HEADERS || "Content-Length"
     },
     security: {
       sts: process.env.HEADERS_STRICT_TRANSPORT_SECURITY || "max-age=31536000; includeSubDomains",
@@ -34,7 +35,8 @@ module.exports = {
         ttl: 86400, // time to live
         createdAt: null,
         updatedAt: null,
-        expiresAt: null
+        expiresAt: null,
+        version: 1 // Adapt this if signature changes!
       },
       defaults: {
         requests: process.env.LOCKERS_DEFAULTS_REQUESTS || 1,
