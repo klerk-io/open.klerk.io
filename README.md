@@ -1,4 +1,4 @@
-# Welcome to Klerk Community Edition
+# Welcome to the Open Klerk API
 
 This is a tool to save data temporarily on a storage system outside of your own infrastructure. You can leverage the power of serverless technology and secure locker IDs. We aim to provide integrations to major cloud function providers like Google Cloud Platform, Amazon Web Services. If you wish to do so, please expand the functionality to Microsoft Azure and Apache OpenWhisk.
 
