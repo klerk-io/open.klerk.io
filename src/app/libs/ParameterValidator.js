@@ -115,7 +115,7 @@ export default class ParameterValidator {
       // Check if hash is empty
       case "object": {
         let empty = true, item;
-        for (item in this.parameter) {
+        for (item of this.parameter) {
           empty = false;
           break;
         }
