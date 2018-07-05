@@ -23,6 +23,12 @@ module.exports = modofun(
       function() {
         return lockerController.store(this.body);
       }
+    ],
+    purge: [
+      modofun.arity(0),
+      function() {
+        return lockerController.purge();
+      }
     ]
   },
   {

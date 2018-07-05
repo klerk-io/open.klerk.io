@@ -65,13 +65,13 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    *
    * @returns {Object}
    */
-  async store(data, id = null, table = null) {
+  async store(data, id = null, table = null, indexes = null) {
     this.parameter.set(data).isObject().isNotEmpty();
 
     id = id || UUIDv1();
     table = table || this.table;
 
-    const entity = this.makeEntity(data, id, table);
+    const entity = this.makeEntity(data, id, table, indexes);
 
     try {
       await this.datastore.save(entity);
@@ -132,24 +132,52 @@ export default class DatabaseGcloud extends DatabaseAbstract {
     }
   }
 
+  async query(filters = [], table = null) {
+    this.parameter.set(filters).isNotEmpty();
+
+    table = table || this.table;
+
+    const query = this.datastore.createQuery(table);
+
+    // Add filters to query
+    for (let filter of filters) {
+      console.log("Filter: ", ...filter);
+      // Only try to add a filter if three filter properties are present
+      if (filter.length === 3) {
+        query.filter(...filter); // The filter array consists of property, operator and value
+      } else {
+        throw new Error("Wrong number of filter properties. Has to have property, operator and value.");
+      }
+    }
+
+    try {
+      const results = await this.datastore.runQuery(query);
+      return results;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  }
+
+
   /**
    * Input Conversion
    *
    * @param   {Object} data
    * @returns {Object}
    */
-  inputConversion(data) {
-    let gdata = [];
+  inputConversion(data, indexes = []) {
+    let converted = [];
 
     for (let key of Object.keys(data)) {
-      gdata.push({
+      converted.push({
         name: key,
         value: data[key],
-        excludeFromIndexes: true
+        excludeFromIndexes: key === "id" || indexes.indexOf(key) === -1
       });
     }
 
-    return gdata;
+    return converted;
   }
 
   /**
@@ -171,14 +199,14 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    *
    * @returns {Object}
    */
-  makeEntity(data, id, table) {
+  makeEntity(data, id, table, indexes = []) {
     this.parameter.set(data).isObject().isNotEmpty();
     this.parameter.set(id).isString().isNotEmpty();
     this.parameter.set(table).isString().isNotEmpty();
 
     return {
       key: this.datastore.key([table, id]),
-      data: this.inputConversion(data)
+      data: this.inputConversion(data, indexes)
     };
   }
 

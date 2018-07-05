@@ -66,6 +66,7 @@ export default class LockerController extends DefaultController {
     // console.log("Called LockerController.store() with:", data);
     this.parameter.set(data).isNotEmpty();
 
+    const indexes = this.config.lockers.entity.indexes;
     const requests = this.config.lockers.entity.defaults.requests;
     const ttl = this.config.lockers.entity.defaults.ttl;
     const createdAt = Math.round(new Date().getTime() / 1000);
@@ -82,7 +83,7 @@ export default class LockerController extends DefaultController {
     const lockerEntity = locker.toJson();
     // console.log("Called LockerController.store() entity:", lockerEntity);
 
-    const result = await this.database.store(lockerEntity, lockerEntity.id);
+    const result = await this.database.store(lockerEntity, lockerEntity.id, null, indexes);
     // console.log("Called LockerController.store() result:", result);
 
     return result;
@@ -107,6 +108,30 @@ export default class LockerController extends DefaultController {
    * @returns {Response}
    */
   async delete(id) {
-    throw new Error(`Method delete(id) is not implemented`);
+    return await this.database.delete(id);
+  }
+
+  /**
+   * Purge database from stale lockers
+   *
+   * @returns {Response}
+   */
+  async purge() {
+    const now = Math.round(new Date().getTime() / 1000);
+
+    // Get all stale lockers
+    const lockers = (await this.database.query([["expiresAt", "<=", now]]))[0];
+
+    // Delete lockers
+    if (lockers.length > 0) {
+      const results = await Promise.all(lockers.map(locker => this.delete(locker.id)));
+      const errors = results.filter(result => result !== true);
+
+      if (errors.length > 0) {
+        throw new Error(`Couldn't purge all stale lockers.`);
+      }
+    }
+
+    return true;
   }
 }

@@ -38,6 +38,12 @@ module.exports = {
         expiresAt: null,
         version: 1 // Adapt this if signature changes!
       },
+      indexes: [
+        "id",
+        "createdAt",
+        "expiresAt",
+        "version"
+      ],
       defaults: {
         requests: process.env.LOCKERS_DEFAULTS_REQUESTS || 1,
         ttl: process.env.LOCKERS_DEFAULTS_TTL || 86400,

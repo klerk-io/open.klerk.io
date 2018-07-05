@@ -37,7 +37,7 @@ export default class DatabaseContract {
    *
    * @return {Object}
    */
-  async store(data, id = null, table = null) {
+  async store(data, id = null, table = null, indexes = null) {
     throw new Error(`DatabaseContract.store not implemented!`);
   }
 
@@ -64,5 +64,9 @@ export default class DatabaseContract {
    */
   async delete(id, table = null) {
     throw new Error(`DatabaseContract.delete not implemented!`);
+  }
+
+  async query(filters = [], table = null) {
+    throw new Error(`DatabaseContract.query not implemented!`);
   }
 }
