@@ -26,8 +26,6 @@ export default class Locker extends Model {
       this.createId();
     }
 
-    console.log(this.entity);
-
     return this;
   }
 
