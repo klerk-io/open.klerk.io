@@ -26,6 +26,8 @@ export default class Locker extends Model {
       this.createId();
     }
 
+    console.log(this.entity);
+
     return this;
   }
 
@@ -42,7 +44,7 @@ export default class Locker extends Model {
       this.createId();
     }
 
-    this.entity = Object.assign(this.entity || {}, config.lockers.entity.signature, entity);
+    this.entity = Object.assign({}, config.lockers.entity.signature, this.entity, entity);
 
     return this;
   }
