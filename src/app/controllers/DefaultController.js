@@ -1,6 +1,7 @@
 
 import ParameterValidator from "../libs/ParameterValidator";
 import ResponseError from "../libs/ResponseError";
+import RequireLibrary from "../libs/RequireLibrary";
 
 /**
  * Default Controller
@@ -24,15 +25,6 @@ export default class DefaultController {
   }
 
   /**
-   * Capitalize a string (how is this not a String prototype in 2018?)
-   * @param  {String} string
-   * @returns {String}
-   */
-  capitalize(string) {
-    return string.replace(/\b\w/g, s => s.toUpperCase());
-  }
-
-  /**
    * Require a library for the current platform
    *
    * @todo:
@@ -45,6 +37,6 @@ export default class DefaultController {
    * @returns {Class}
    */
   requireLib(path) {
-    return require(`../libs/${path}/${this.capitalize(path)}${this.capitalize(this.config.app.platform)}`).default;
+    return RequireLibrary(path, this.config.app.platform);
   }
 }
