@@ -65,7 +65,7 @@ export default class DatabaseGcloud extends DatabaseAbstract {
    *
    * @returns {Object}
    */
-  async store(data, id = null, table = null, indexes = null) {
+  async store(data, id = null, table = null, indexes = []) {
     this.parameter.set(data).isObject().isNotEmpty();
 
     id = id || UUIDv1();
