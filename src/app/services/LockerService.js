@@ -5,6 +5,7 @@ const modofun = require("modofun");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const accesscontrol = require("../middleware/AccessControl");
+const accesslog = require("../middleware/AccessLog");
 const options = require("../middleware/OptionsResponse");
 
 const LockerController = require("../controllers/LockerController").default;
@@ -35,6 +36,7 @@ module.exports = modofun(
     middleware: [
       morgan("tiny"),
       accesscontrol(config.headers.access),
+      accesslog(config),
       options(),
       helmet()
     ]
